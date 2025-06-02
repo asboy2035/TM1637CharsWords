@@ -46,7 +46,7 @@ void displayAlphabet(TM1637Display display, int letterDelay = 1) // Displays the
 - #### Predefined Words
     Available predefined words: helo, good, stop, hold, exit1, done, nope, all_on
 
-- #### Loader Positions**
+- #### Loader Positions
     These constants define the positions for the loader animation:
 
     ```c++
