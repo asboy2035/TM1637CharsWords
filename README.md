@@ -1,118 +1,93 @@
-# TM1637CharsWords Arduino Library Documentation
+# TM1637CharsWords Library
 
-**Overview**
+Welcome to the TM1637CharsWords library! This handy Arduino library makes it super simple to display letters, numbers, words, and animations on a 4-digit 7-segment display using the TM1637Display driver. Whether you want to show messages, create fun loaders, or scroll through the alphabet, this library has you covered.
 
-The TM1637CharsWords library provides utility functions and constants for displaying characters, words, numbers, and custom loader sequences on a 4-digit 7-segment display using the TM1637Display library. It simplifies the process of displaying predefined characters and sequences such as strings, digits, and animated loaders.
+---
 
-**Key Features**
+## What You Can Do
 
-• **Character Display**: Display individual letters and digits on a 4-digit 7-segment display.
+- Display individual **letters** and **digits** on your 7-segment display.
+- Show **predefined words** like "HELLO", "DONE", and "GOODBYE".
+- Animate a **loader sequence** to indicate progress or waiting.
+- Customize delays between displayed characters or animations.
+- Easily loop through the **alphabet** or any sequence you want.
 
-• **Predefined Words**: Predefined character arrays for commonly used words such as “hello”, “done”, and “goodbye.”
+---
 
-• **Loader Animation**: Create a loading animation with a predefined sequence.
+## Quick Start
 
-• **Custom Delays**: Control the timing between items in an array or animation with configurable delays.
+Get your display up and running with just a few lines of code:
 
-## Functions
+```cpp
+#include <TM1637Display.h>
+#include <TM1637CharsWords.h>
 
-**void delaySeconds(int seconds)**
+TM1637Display display(2, 3);  // CLK pin 2, DIO pin 3
 
-**Description**: Delays the program execution for a specified number of seconds.
+void setup() {
+  display.begin();
+  byte word[] = {H, E, L, L, O};
+  displayArray(display, word, sizeof(word), 1);  // Show "HELLO" with 1-second delay
+}
 
-**Parameters**:
-
-• seconds: The number of seconds to delay.
-
-**Example**:
-
-```other
-delaySeconds(2);  // Delays for 2 seconds.
+void loop() {
+  // Your code here
+}
 ```
 
 ---
-**void displayArray(TM1637Display display, byte array[], int arrayLength, int itemDelay = 1)**
 
-**Description**: Displays a sequence of characters (from the array[]) on the 4-digit display, with a delay between each item.
+## Displaying Characters & Words
 
-**Parameters**:
+Use `displayArray()` to show sequences of characters or words. Just pass the display object, your character array, its length, and an optional delay between each item.
 
-• display: A TM1637Display object that controls the display.
-
-• array[]: An array of characters (bytes) to display.
-
-• arrayLength: The length of the array[].
-
-• itemDelay: The delay (in seconds) between displaying each item. Default is 1 second.
-
-**Example**:
-
-```other
-byte word[] = {H, E, L, L, O};
-displayArray(display, word, sizeof(word), 2);  // Displays "HELLO" with a 2-second delay between characters.
+```cpp
+byte good[] = {G, O, O, D};
+displayArray(display, good, sizeof(good), 2);  // Displays "GOOD" with 2-second delay
 ```
+
 ---
 
-**void displayLoader(TM1637Display display, unsigned int position)**
+## Animations & Loaders
 
-**Description**: Displays a loader animation at a specific position on the 7-segment display.
+Bring your display to life with loader animations!
 
-**Parameters**:
+- **Display a loader at a position:**
 
-• display: A TM1637Display object that controls the display.
+  ```cpp
+  displayLoader(display, 0);  // Start loader animation at position 0
+  ```
 
-• position: The starting position for the loader animation.
+- **Play loader sequence multiple times:**
 
-**Example**:
+  ```cpp
+  playLoaderSequence(display, 0, 3);  // Play loader 3 times at position 0
+  ```
 
-```other
-displayLoader(display, 0);  // Displays the loader animation starting from position 0.
-```
 ---
 
-**void playLoaderSequence(TM1637Display display, unsigned int position, unsigned int times)**
+## Alphabet Display
 
-**Description**: Plays the loader animation sequence a specified number of times at the given position.
+Show the entire alphabet one letter at a time with a delay you choose:
 
-**Parameters**:
-
-• display: A TM1637Display object that controls the display.
-
-• position: The starting position for the loader animation.
-
-• times: The number of times to repeat the loader animation.
-
-**Example**:
-
-```other
-playLoaderSequence(display, 0, 3);  // Plays the loader animation 3 times starting at position 0.
+```cpp
+displayAlphabet(display, 1);  // Displays A-Z with 1-second delay between letters
 ```
+
 ---
 
-**void displayAlphabet(TM1637Display display, int letterDelay = 1)**
+## Utility Functions
 
-**Description**: Displays the entire alphabet on the 7-segment display, one letter at a time.
+- **delaySeconds(int seconds)**  
+  Pauses program execution for a given number of seconds.
 
-**Parameters**:
-
-• display: A TM1637Display object that controls the display.
-
-• letterDelay: The delay (in seconds) between displaying each letter. Default is 1 second.
-
-**Example**:
-
-```other
-displayAlphabet(display, 1);  // Displays the alphabet with a 1-second delay between letters.
-```
 ---
 
-**Constants**
+## Constants & Predefined Values
 
-**Numbers**
+### Numbers (0-9)
 
-The following constants represent digits 0-9. These are used for displaying numerical values on the 7-segment display.
-
-```other
+```cpp
 const byte n0 = SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F;
 const byte n1 = SEG_B | SEG_C;
 const byte n2 = SEG_A | SEG_B | SEG_D | SEG_E | SEG_G;
@@ -125,33 +100,26 @@ const byte n8 = SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F | SEG_G;
 const byte n9 = SEG_A | SEG_B | SEG_C | SEG_D | SEG_F | SEG_G;
 ```
 
-**Letters**
+### Letters (A-Z)
 
-The following constants represent uppercase English letters that can be displayed on the 7-segment display.
-
-```other
+```cpp
 const byte A = SEG_A | SEG_B | SEG_C | SEG_E | SEG_F | SEG_G;
 const byte B = SEG_C | SEG_D | SEG_E | SEG_F | SEG_G;
 const byte C = SEG_A | SEG_D | SEG_E | SEG_F;
-// Add all the other letters similarly...
+// ... and more letters defined similarly
 ```
 
-**Predefined Words**
+### Predefined Words
 
-These are predefined character arrays for commonly used words and phrases that can be displayed on the 7-segment display:
-
-```other
+```cpp
 const byte helo[] = { H, E, L, O };
 const byte good[] = { G, O, O, D };
 const byte stop[] = { S, T, O, P };
-// Add more words as needed...
 ```
 
-**Loader Positions**
+### Loader Segments
 
-These constants define the positions for the loader animation:
-
-```other
+```cpp
 const byte L1 = SEG_A;
 const byte L2 = SEG_B;
 const byte L3 = SEG_C;
@@ -159,47 +127,3 @@ const byte L4 = SEG_D;
 const byte L5 = SEG_E;
 const byte L6 = SEG_F;
 ```
-
-**Example Usage**
-
-**Example 1: Display a Word**
-
-```other
-#include <TM1637Display.h>
-#include <TM1637CharsWords.h>
-
-TM1637Display display(2, 3);  // Initialize display (CLK pin 2, DIO pin 3)
-
-void setup() {
-  display.begin();
-  byte word[] = {H, E, L, L, O};
-  displayArray(display, word, sizeof(word), 1);
-}
-
-void loop() {
-  // Add any other logic here
-}
-```
-
-**Example 2: Display the Alphabet**
-
-```other
-#include <TM1637Display.h>
-#include <TM1637CharsWords.h>
-
-TM1637Display display(2, 3);  // Initialize display (CLK pin 2, DIO pin 3)
-
-void setup() {
-  display.begin();
-  displayAlphabet(display, 1);  // Display the alphabet with a 1-second delay
-}
-
-void loop() {
-  // Add any other logic here
-}
-```
-
-**Conclusion**
-
-The TM1637CharsWords library is a powerful and easy-to-use tool for working with 7-segment displays. It abstracts the complexity of managing individual segments for characters and provides simple functions to display numbers, letters, predefined words, and even animations. Perfect for projects that require text-based output on a 7-segment display.
-

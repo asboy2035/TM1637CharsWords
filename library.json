@@ -1,0 +1,32 @@
+{
+  "name": "TM1637CharsWords",
+  "version": "0.0.2",
+  "keywords": [
+    "tm1637",
+    "7-segment",
+    "display",
+    "animation",
+    "arduino"
+  ],
+  "description": "Helper library for displaying words, letters, and animations on TM1637 4-digit displays.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asboy2035/TM1637CharsWords"
+  },
+  "authors": [
+    {
+      "name": "ash",
+      "email": "ash@asboy2035.com",
+      "url": "https://asboy2035.com",
+      "maintainer": true
+    }
+  ],
+  "frameworks": ["arduino"],
+  "platforms": ["atmelavr", "espressif8266", "espressif32"],
+  "dependencies": [
+    {
+      "name": "smougenot/TM1637@0.0.0-alpha+sha.9486982048"
+    }
+  ],
+  "license": "Apache-2.0"
+}
